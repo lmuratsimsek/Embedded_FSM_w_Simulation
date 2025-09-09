@@ -1,4 +1,4 @@
-# Embedded FSM Visualization 🔁
+# 🔁 Embedded FSM Visualization
 
 This project demonstrates a **modular state machine (FSM)** architecture tailored for **embedded systems**, along with a **real-time graphical simulation** using Python and Tkinter.
 
@@ -13,11 +13,12 @@ It is designed to visualize and explain how state transitions occur in a structu
 - Provide a **visual simulation** of FSM flow via Python GUI
 - Emulate real-time system behavior for better understanding and testing
 
-<img width="665" height="625" alt="MainStateMachine" src="https://github.com/user-attachments/assets/8971a156-dff9-41bc-8ba1-7161211ad35b" />
+---
 
 ## 📂 Project Structure
 
-```text
+```
+embedded-fsm-visualization/
 ├── embedded/
 │   ├── main.c
 │   ├── main.h
@@ -31,6 +32,9 @@ It is designed to visualize and explain how state transitions occur in a structu
 ├── README.md
 └── LICENSE
 ```
+
+---
+
 ## ⚙️ FSM Core in C (`main.c` / `main.h`)
 
 ### ✳️ `main.h` Overview
@@ -76,7 +80,15 @@ typedef struct mainLoop_s {
     size_t sizeComplexStateMachine;
 } mainStruct_Type;
 ```
-### ✳️ FSM Initialization
+
+---
+
+### ⚙️ `main.c` Logic
+
+The FSM system is initialized and executed in a main loop. Transitions are handled by mapping the current function + event combination to the target state.
+
+#### 🔹 FSM Initialization
+
 ```c
 static void vMainLoopInit(void) {
     mainStruct.sizeMainStateMachine = sizeof(mainStateMachine) / sizeof(mainStateMachine[0]);
@@ -85,7 +97,9 @@ static void vMainLoopInit(void) {
     mainStruct.sizeComplexStateMachine = sizeof(complexFunc) / sizeof(complexFunc[0]);
 }
 ```
-### ✳️ FSM Main Loop
+
+#### 🔹 FSM Main Loop
+
 ```c
 static void vMainLoop(void) {
     do {
@@ -96,7 +110,9 @@ static void vMainLoop(void) {
     } while (mainStruct.prvActiveFunc != prvExitFromTask);
 }
 ```
-### ✳️ State Transition Mapping
+
+#### 🔹 State Transition Mapping
+
 ```c
 static void prvSourceFuncAndEventMapper(void) {
     for (size_t i = 0; i < mainStruct.sizeMainStateMachine; i++) {
@@ -112,7 +128,9 @@ static void prvSourceFuncAndEventMapper(void) {
     }
 }
 ```
-### ✳️ Entry/Exit Function Handler
+
+#### 🔹 Entry/Exit Function Handler
+
 ```c
 static void prvFuncTransition(void) {
     if (mainStruct.complexStateInfo.prvExit != NULL)
@@ -123,7 +141,9 @@ static void prvFuncTransition(void) {
         mainStruct.prvActiveFunc = mainStruct.prvTargetFunc;
 }
 ```
-### ✳️ Sample State Functions
+
+#### 🔹 Sample State Functions
+
 ```c
 static void prvStates_AEventCheck(void) {
     static uint8_t ucAData = 0;
@@ -139,26 +159,73 @@ static void prvExitState_AEventCheck(void) {
     printf("\nExit - prvExitState_AEventCheck");
 }
 ```
+
+---
+
 ## 🖥️ Python Simulation
 
-Inside the simulation/ folder:
+Inside the `simulation/` folder:
 
-fsm_visual.py is a real-time state machine simulator using Tkinter
+- `fsm_visual.py` is a real-time state machine simulator using `Tkinter`
+- Shows FSM state flow live with colored highlights
+- Automatically triggers random events between states
+- Entry/Exit functions shown diagonally connected
+- All state transitions visualized with directional arrows
 
-Shows FSM state flow live with colored highlights
+```bash
+cd simulation/
+python fsm_visual.py
+```
 
-Automatically triggers random events between states
+📷 Example Visual:
+<img width="665" height="625" alt="MainStateMachine" src="https://github.com/user-attachments/assets/8971a156-dff9-41bc-8ba1-7161211ad35b" />
 
-Entry/Exit functions shown diagonally connected
+---
 
-All state transitions visualized with directional arrows
+## ✅ Benefits of This FSM Architecture
 
+- ✅ **Modular and Readable**: Clear separation of logic per state
+- 🔁 **Reusable**: Easy to plug new states/events
+- 🧩 **Entry/Exit Hooks**: Better control per transition
+- 🧪 **Testable**: Logic can be simulated on PC before embedded deployment
+- 👀 **Visual Debugging**: Tkinter GUI aids in design & verification
 
+---
 
+## 🚀 Getting Started
 
+### 🧰 Requirements (Python)
 
+- Python 3.7+
+- Tkinter (standard lib)
 
+```bash
+pip install tk
+```
 
+### ⚙️ Build Embedded (STM32 or Bare Metal)
 
+1. Include `main.c`, `main.h` in your project
+2. Call `vMainLoopInit()` once
+3. Run `vMainLoop()` in your main task or super-loop
 
+---
+
+## 📚 License
+
+Feel free to use and modify. Attribution appreciated.
+
+---
+
+## 🙌 Contributing
+
+Pull requests, ideas, or feature requests are welcome!
+
+---
+
+## 👋 Author
+
+Made with ❤️ by **Murat Şimşek**  
+🛠️ Embedded Systems & Software Architecture  
+📫 [LinkedIn](https://linkedin.com/in/your-profile)
 
