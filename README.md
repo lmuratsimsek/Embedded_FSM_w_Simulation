@@ -225,7 +225,7 @@ Pull requests, ideas, or feature requests are welcome!
 
 ## 👋 Author
 
-Made with ❤️ by **Murat Şimşek**  
+Made by **Murat Şimşek**  
 🛠️ Embedded Systems & Software Architecture  
-📫 [LinkedIn](https://linkedin.com/in/your-profile)
+📫 [LinkedIn](https://linkedin.com/in/lmuratsimsek)
 
